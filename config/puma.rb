@@ -31,3 +31,7 @@ plugin :tmp_restart
 
 # Only use a pidfile when requested
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+# Automatically regenerate the Tailwind CSS on the development server
+# https://github.com/rails/tailwindcss-rails?tab=readme-ov-file#puma-plugin
+plugin :tailwindcss if ENV.fetch("RAILS_ENV", "development") == "development"

@@ -13,3 +13,6 @@ This is a project to simplify collection and analysis of CI results.
 Best way to get started here is to use the "Dev Container".
 It should set up all the things you need.
 You can find more details about it here https://edgeguides.rubyonrails.org/getting_started_with_devcontainer.html.
+
+After that has been setup, you can run `rails s` on the console it opened.
+And access the development app on http://localhost:3000
