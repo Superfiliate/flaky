@@ -16,3 +16,19 @@ You can find more details about it here https://edgeguides.rubyonrails.org/getti
 
 After that has been setup, you can run `rails s` on the console it opened.
 And access the development app on http://localhost:3000
+
+## Production environment
+
+⚠️ WIP, write down details about storage, database, and ENV variables.
+
+### https://flaky.xyz/
+
+This is deployed to fly.io.
+If you have access to the organization you can run `flyctl` commands from you terminal to tweak it.
+Or check https://fly.io/apps/flaky.
+
+```bash
+flyctl deploy --remote-only
+flyctl console
+# etc...
+```
