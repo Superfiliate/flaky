@@ -1,24 +1,15 @@
-# README
+# Flaky
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a project to simplify collection and analysis of CI results.
 
-Things you may want to cover:
+- [ ] Be able to upload and see SimpleCov HTML reports.
+- [ ] Report Rspec test coverage along the time.
+- [ ] Be able to upload and see Sorbet's Spoom HTML reports.
+- [ ] Report Sorbet typing along the time.
+- [ ] Be able to track failing specs, and analyze which could be flaky in need of some help.
 
-* Ruby version
+## Development environment
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Best way to get started here is to use the "Dev Container".
+It should set up all the things you need.
+You can find more details about it here https://edgeguides.rubyonrails.org/getting_started_with_devcontainer.html.
