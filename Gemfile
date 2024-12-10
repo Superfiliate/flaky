@@ -61,3 +61,13 @@ end
 # gem "dockerfile-rails", ">= 1.6", :group => :development
 
 gem "aws-sdk-s3", "~> 1.176", :require => false
+
+gem "devise", "~> 4.9"
+
+gem "omniauth-github", "~> 2.0"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "omniauth", "~> 2.1"
+
+gem "dotenv-rails", "~> 3.1"
