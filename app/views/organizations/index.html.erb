@@ -1,25 +1,27 @@
 <h1>Organizations</h1>
 
-<ul class="list-disc">
-  <% if @organizations.blank? %>
-    <li>No organizations yet...</li>
-  <% end %>
+<div class="flex justify-between">
+  <ul class="list-disc">
+    <% if @organizations.blank? %>
+      <li>No organizations yet...</li>
+    <% end %>
 
-  <% @organizations.each do |organization| %>
-    <li><a href="<%= organization_path(organization) %>" class="link"><%= organization.handle %></a></li>
-  <% end %>
-</ul>
+    <% @organizations.each do |organization| %>
+      <li><a href="<%= organization_path(organization) %>" class="link"><%= organization.handle %></a></li>
+    <% end %>
+  </ul>
 
-<div class="card mt-6">
-  <h3>Create new organization</h3>
+  <div class="card inline-block">
+    <h3>Create new organization</h3>
 
-  <%= form_with model: Organization.new, class: "flex flex-col items-start gap-2" do |form| %>
-    <div>
-      <%= form.label :handle %>
-      <%= form.text_field :handle, placeholder: "my-company-name" %>
-      <div class="text-xs mt-1">Only lowercase letters, numbers, and hyphens. Eg: 'my-company-name'</div>
-    </div>
+    <%= form_with model: Organization.new, class: "flex flex-col items-start gap-2" do |form| %>
+      <div>
+        <%= form.label :handle %>
+        <%= form.text_field :handle, placeholder: "my-company-name" %>
+        <div class="text-xs mt-1">Only lowercase letters, numbers, and hyphens. Eg: 'my-company-name'</div>
+      </div>
 
-    <%= form.submit "Create", class: "button" %>
-  <% end %>
+      <%= form.submit "Create", class: "button" %>
+    <% end %>
+  </div>
 </div>

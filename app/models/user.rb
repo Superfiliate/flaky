@@ -15,4 +15,8 @@ class User < ApplicationRecord
       user.password = SecureRandom.hex(20)
     end
   end
+
+  def self.find_by_handle(handle)
+    find_by("handle LIKE ?", handle)
+  end
 end

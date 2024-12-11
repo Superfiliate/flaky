@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :organizations, only: %i[index create show]
+  resources :organization_users, only: %i[create]
   resources :projects, only: %i[create show]
   resources :reports, only: %i[] do
     member do

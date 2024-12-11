@@ -2,8 +2,9 @@
 <h5>Project</h5>
 <h1><%= @project.handle %></h1>
 
-<h4>Reports</h4>
 <ul class="list-disc">
+  <h4>Reports</h4>
+
   <% if @reports.blank? %>
     <li>No reports yet...</li>
   <% end %>

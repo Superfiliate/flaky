@@ -2,29 +2,61 @@
 <h5>Organization</h5>
 <h1><%= @organization.handle %></h1>
 
-<h4>Projects</h4>
-<ul class="list-disc">
-  <% if @projects.blank? %>
-    <li>No projects yet...</li>
-  <% end %>
+<div class="flex justify-between">
+  <ul class="list-disc">
+    <h4>Projects</h4>
 
-  <% @projects.each do |project| %>
-    <li><a href="<%= project_path(project) %>" class="link"><%= project.handle %></a></li>
-  <% end %>
-</ul>
+    <% if @projects.blank? %>
+      <li>No projects yet...</li>
+    <% end %>
 
-<div class="card mt-6">
-  <h3>Create new project</h3>
+    <% @projects.each do |project| %>
+      <li><a href="<%= project_path(project) %>" class="link"><%= project.handle %></a></li>
+    <% end %>
+  </ul>
 
-  <%= form_with model: Project.new, class: "flex flex-col items-start gap-4" do |form| %>
-    <%= form.hidden_field :organization_id, value: @organization.id %>
+  <div class="card inline-block">
+    <h3>Create new project</h3>
 
-    <div>
-      <%= form.label :handle %>
-      <%= form.text_field :handle, placeholder: "my-github-repo" %>
-      <div class="text-xs mt-1">Only lowercase letters, numbers, and hyphens. Eg: 'my-github-repo'</div>
-    </div>
+    <%= form_with model: Project.new, class: "flex flex-col items-start gap-4" do |form| %>
+      <%= form.hidden_field :organization_id, value: @organization.id %>
 
-    <%= form.submit "Create", class: "button" %>
-  <% end %>
+      <div>
+        <%= form.label :handle %>
+        <%= form.text_field :handle, placeholder: "my-github-repo" %>
+        <div class="text-xs mt-1">Only lowercase letters, numbers, and hyphens. Eg: 'my-github-repo'</div>
+      </div>
+
+      <%= form.submit "Create", class: "button" %>
+    <% end %>
+  </div>
+</div>
+
+<hr class="my-8" />
+
+<div class="flex justify-between">
+  <ul class="list-disc">
+    <h4>Users</h4>
+
+    <% @users.each do |user| %>
+      <li><%= user.handle %></li>
+    <% end %>
+  </ul>
+
+  <div class="card inline-block">
+    <h3>Invite user</h3>
+
+    <%= form_with model: OrganizationUser.new, class: "flex flex-col items-start gap-4" do |form| %>
+      <%= form.hidden_field :organization_id, value: @organization.id %>
+
+      <div>
+        <%= form.label :user_handle %>
+        <%= form.text_field :user_handle, placeholder: "my-github-repo" %>
+        <div class="text-xs mt-1">The user must have already been signed up with their Github.</div>
+        <div class="text-xs"><%= link_to "Send them this link if they haven't yet", root_path, class: "link" %></div>
+      </div>
+
+      <%= form.submit "Invite", class: "button" %>
+    <% end %>
+  </div>
 </div>

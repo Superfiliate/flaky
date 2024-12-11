@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
   def show
     @organization = organizations.find(params[:id])
     @projects = @organization.projects
+    @users = @organization.users
   end
 
   private
