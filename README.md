@@ -37,7 +37,7 @@ If you have access to Fly you can run `flyctl` commands from you terminal to twe
 Or check https://fly.io/apps/flaky.
 ```bash
 flyctl deploy --remote-only
-flyctl console
+flyctl ssh console
 # etc...
 ```
 

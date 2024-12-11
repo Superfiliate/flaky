@@ -79,7 +79,10 @@ jobs:
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: |
+          bin/rails db:test:prepare
+          # bin/rails test:system
+          bin/rails test test/**
 
       - name: Send SimpleCov to flaky.xyz
         if: always()

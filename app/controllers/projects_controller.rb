@@ -27,7 +27,6 @@ class ProjectsController < ApplicationController
   private
 
   def create_params
-
     params
       .require(:project)
       .permit(:handle, :organization_id)

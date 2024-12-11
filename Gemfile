@@ -23,7 +23,7 @@ gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 
 # Active Storage
 # gem "image_processing", "~> 1.2" # https://guides.rubyonrails.org/active_storage_overview.html#transforming-images
-gem "aws-sdk-s3", "~> 1.176", :require => false
+gem "aws-sdk-s3", "~> 1.176", require: false
 
 # Auth
 gem "devise", "~> 4.9"
@@ -47,7 +47,7 @@ group :development do
 end
 
 group :test do
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
