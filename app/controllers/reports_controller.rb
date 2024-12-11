@@ -6,9 +6,8 @@ class ReportsController < ApplicationController
   protect_from_forgery except: %i[bundled_html]
 
   def bundled_html
-    # TODO: Need to check the authorization...
     # TODO: Rescue and render some errors
-    @report = Report.find(params[:id])
+    @report = reports.find(params[:id])
 
     if lookup_path.blank?
       @items = with_zip_entries do |entries|
@@ -60,5 +59,9 @@ class ReportsController < ApplicationController
         yield zip_entries
       end
     end
+  end
+
+  def reports
+    Report.where(organization: current_user.organizations)
   end
 end
