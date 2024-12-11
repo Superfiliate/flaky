@@ -95,7 +95,6 @@ GEM
     bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.8)
-    bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     brakeman (6.2.2)
@@ -123,6 +122,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    docile (1.4.1)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
       dotenv (= 3.1.4)
@@ -316,6 +316,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.1)
+    simplecov_json_formatter (0.1.4)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -363,11 +369,6 @@ GEM
     version_gem (1.1.4)
     warden (1.2.9)
       rack (>= 2.0.9)
-    web-console (4.2.1)
-      actionview (>= 6.0.0)
-      activemodel (>= 6.0.0)
-      bindex (>= 0.4.0)
-      railties (>= 6.0.0)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -408,13 +409,13 @@ DEPENDENCIES
   rails (~> 7.2.0)
   rubocop-rails-omakase
   selenium-webdriver
+  simplecov
   sprockets-rails
   sqlite3 (>= 1.4)
   stimulus-rails
   tailwindcss-rails
   turbo-rails
   tzinfo-data
-  web-console
 
 BUNDLED WITH
    2.5.11

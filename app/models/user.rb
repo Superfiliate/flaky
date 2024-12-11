@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_users
 
   devise :database_authenticatable, :omniauthable, :trackable, omniauth_providers: [:github]
+  validates :handle, :email, presence: true, uniqueness: true
 
   # Called by the `omniauth_callbacks_controller.rb`
   def self.from_omniauth(auth)

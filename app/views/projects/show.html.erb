@@ -21,6 +21,9 @@
 <div class="flex justify-between items-start">
   <div class="card flex flex-col">
     After running your tests on your CI, you can send the reports to this project by using the following command:
+
+    <%# TODO: show a full example of a Github Action here instead. %>
+
     <textarea>
 curl -X POST http://localhost:3000/api/reports/simplecov \
   -F "bundled_html=@/path/to/your/simplecov/coverage.zip" \
