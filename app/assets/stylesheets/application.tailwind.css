@@ -8,10 +8,49 @@
     text-decoration-style: dotted;
     font-weight: bolder;
   }
+  .card {
+    @apply border border-neutral-content rounded-xl p-3;
+  }
+  .button {
+    @apply border border-neutral-content py-1 px-2 rounded cursor-pointer;
+  }
 }
 
 @layer base {
   strong {
     font-weight: bolder;
+  }
+  label {
+    display: block;
+  }
+  ul {
+    list-style-position: inside;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+  }
+  h2 {
+    font-size: 2rem;
+    font-weight: 900;
+  }
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+  h5 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  h6 {
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  input[type="text"] {
+    @apply border border-neutral-content rounded-lg p-2 bg-transparent;
   }
 }

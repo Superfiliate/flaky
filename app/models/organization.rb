@@ -5,5 +5,11 @@ class Organization < ApplicationRecord
   has_many :projects
   has_many :reports
 
-  validates :legacy_code, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }, uniqueness: true
+  validates :handle,
+            presence: true,
+            format: {
+              with: /\A[a-z0-9\-]+\z/,
+              message: "accepts only lowercase letters, numbers, and hyphens. Eg: 'my-company-name'"
+            },
+            uniqueness: true
 end

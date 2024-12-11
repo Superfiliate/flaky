@@ -19,12 +19,24 @@
   </head>
 
   <body class="bg-neutral text-neutral-content">
-    <div>
-      <div><%= notice %></div>
-      <div><%= alert %></div>
-    </div>
+    <nav class="absolute right-0 top-0">
+      <ul class="flex gap-6 p-4">
+        <% if user_signed_in? %>
+          <li><%= link_to "Your organizations", organizations_path, class: "link" %></li>
+          <li><%= button_to "Sign out", destroy_user_session_path, data: { turbo: false }, method: :delete %></li>
+        <% else %>
+          <li><%= button_to "Sign in with Github", user_github_omniauth_authorize_path, data: { turbo: false } %></li>
+        <% end %>
+      </ul>
+    </nav>
 
     <main class="container mx-auto p-5">
+      <div>
+        <% flash.each do |key, message| -%>
+          <%= content_tag :div, message, class: class_names("card mb-4", flash_class_names(key)) %>
+        <% end -%>
+      </div>
+
       <%= yield %>
     </main>
   </body>

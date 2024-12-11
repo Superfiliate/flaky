@@ -5,6 +5,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || "/reports/1/bundled_html"
+    stored_location_for(resource_or_scope) || organizations_path
   end
 end

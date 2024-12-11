@@ -17,7 +17,7 @@ You can find more details about it here https://edgeguides.rubyonrails.org/getti
 After that has been setup, you can run `rails s` on the console it opened.
 And access the development app on http://localhost:3000
 
-The Github Oauth app can be be configured here https://github.com/organizations/Superfiliate/settings/applications/2807803
+The Github Oauth app can be be configured here https://github.com/organizations/Superfiliate/settings/applications/2807827
 
 ```
 curl -X POST http://localhost:3000/api/reports/simplecov \

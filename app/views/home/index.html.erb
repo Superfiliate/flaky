@@ -1,12 +1,3 @@
 <div class="h-[90vh] flex flex-col justify-center items-center">
   <h1 class="glitch text-9xl font-extrabold" data-text="flaky.xyz">flaky.xyz</h1>
-
-  <div class="mt-8">
-    <% if user_signed_in? %>
-      <%= link_to "Your organizations", organizations_path, class: "link" %>
-      <%= button_to "Sign out", destroy_user_session_path, data: { turbo: false }, method: :delete %>
-    <% else %>
-      <%= button_to "Sign in with Github", user_github_omniauth_authorize_path, data: { turbo: false } %>
-    <% end %>
-  </div>
 </div>
