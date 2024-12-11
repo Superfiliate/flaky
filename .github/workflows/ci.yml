@@ -85,12 +85,22 @@ jobs:
           bin/rails test test/**
 
       - name: Send SimpleCov to flaky.xyz
+        id: flaky-xyz-upload
         if: always()
         run: |
           zip -r simplecov.zip coverage;
-          curl -X POST https://flaky.xyz/api/reports/simplecov \
+          RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
             -F "bundled_html=@simplecov.zip" \
-            -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}";
+            -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
+          echo "MARKDOWN=$(echo $RESPONSE | jq '.markdown')" >> $GITHUB_OUTPUT;
+
+      - name: Comment PR with flaky.xyz results
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            ${{ steps.flaky-xyz-upload.outputs.MARKDOWN }}
+          comment-tag: flaky-xyx-simplecov
+          mode: recreate
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4

@@ -21,8 +21,8 @@ The Github Oauth app can be be configured here https://github.com/organizations/
 
 ```
 curl -X POST http://localhost:3000/api/reports/simplecov \
-   -F "bundled_html=@/Users/evsasse/code/coverage.zip" \
-   -H "Authorization: Bearer  sffp1_745c663a6d34b1bddf760ff823e4591d6f370633828274921b4f36a1e55820f4275e04429c64de99408c106f660b50d010305b6366fded8d89ccd8669d038a20"
+   -F "bundled_html=@public/examples/zero_coverage.zip" \
+   -H "Authorization: Bearer  sffp1_30f66f101d0ac1842481db22768e639c7660d8a66f7df062491f158cb75ad73495f8358372da119cdc425f62116fa10a52fe0b131ad964d7a5c49a826bdfe687"
 ```
 
 ## Production environment
