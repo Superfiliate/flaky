@@ -56,6 +56,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    permissions:
+      pull-requests: write # To post comments on PR
+
     # services:
     #  redis:
     #    image: redis
