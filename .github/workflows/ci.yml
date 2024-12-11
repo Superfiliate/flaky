@@ -99,6 +99,7 @@ jobs:
 
       - name: Comment PR with flaky.xyz results
         uses: thollander/actions-comment-pull-request@v3
+        if: ${{ github.event_name == 'pull_request' }}
         with:
           message: |
             ${{ steps.flaky-xyz-upload.outputs.MARKDOWN }}
