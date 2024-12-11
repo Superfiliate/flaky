@@ -1,5 +1,5 @@
-<ul class="list-disc text-link">
+<ul class="list-disc">
   <% @items.each do |item| %>
-    <li><a href="<%= item[:href] %>"><%= item[:name] %></a></li>
+    <li><a href="<%= item[:href] %>" class="link"><%= item[:name] %></a></li>
   <% end %>
 </ul>

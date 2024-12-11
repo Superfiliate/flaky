@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 @layer utilities {
-  .text-link {
-    @apply text-violet-600;
+  .link {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    font-weight: bolder;
+  }
+}
+
+@layer base {
+  strong {
+    font-weight: bolder;
   }
 }
