@@ -51,9 +51,9 @@
 
       <div>
         <%= form.label :user_handle %>
-        <%= form.text_field :user_handle, placeholder: "my-github-repo" %>
+        <%= form.text_field :user_handle, placeholder: "my-friend-handle" %>
         <div class="text-xs mt-1">The user must have already been signed up with their Github.</div>
-        <div class="text-xs"><%= link_to "Send them this link if they haven't yet", root_path, class: "link" %></div>
+        <div class="text-xs"><%= link_to "Send them this link if they haven't signed up yet", root_path, class: "link" %></div>
       </div>
 
       <%= form.submit "Invite", class: "button" %>

@@ -2,28 +2,55 @@
 <h5>Project</h5>
 <h1><%= @project.handle %></h1>
 
-<ul class="list-disc">
-  <h4>Reports</h4>
+<div>
+  <ul class="list-disc">
+    <h4>Reports</h4>
 
-  <% if @reports.blank? %>
-    <li>No reports yet...</li>
-  <% end %>
+    <% if @reports.blank? %>
+      <li>No reports yet...</li>
+    <% end %>
 
-  <% @reports.each do |report| %>
-    <li><a href="<%= bundled_html_report_path(report) %>" class="link"><%= report.name %></a></li>
-  <% end %>
-</ul>
+    <% @reports.each do |report| %>
+      <li><a href="<%= bundled_html_report_path(report) %>" class="link"><%= report.name %></a></li>
+    <% end %>
+  </ul>
+</div>
 
-<div class="card mt-6">
-  <h3>API token</h3>
+<hr class="my-8" />
 
-  <%= form_with model: Project.new, class: "flex flex-col items-start gap-4" do |form| %>
-    <div>
-      <%= form.label :handle %>
-      <%= form.text_field :handle, placeholder: "my-github-repo" %>
-      <div class="text-xs mt-1">Only lowercase letters, numbers, and hyphens. Eg: 'my-github-repo'</div>
-    </div>
+<div class="flex justify-between items-start">
+  <div class="card flex flex-col">
+    After running your tests on your CI, you can send the reports to this project by using the following command:
+    <textarea>
+curl -X POST http://localhost:3000/api/reports/simplecov \
+  -F "bundled_html=@/path/to/your/simplecov/coverage.zip" \
+  -H "Authorization: Bearer sffp1_xxxxxxxxxxxxxxxxxxxxxx"
+    </textarea>
+  </div>
 
-    <%= form.submit "Create", class: "button" %>
-  <% end %>
+  <div class="card">
+    <% if @project.api_auth_digest.blank? %>
+      <h3>Create API Token</h3>
+      <div class="card bg-warning text-warning-content mb-3">
+        This project doesn't have an API token yet.
+        <br />
+        Create one to start sending reports...
+      </div>
+    <% else %>
+      <h3>Reset API Token</h3>
+      <div class="card bg-warning text-warning-content mb-3">
+        Your previous API token will no longer work if you reset this!
+      </div>
+    <% end %>
+
+    <%= form_with model: @project, class: "flex flex-col items-start gap-4" do |form| %>
+      <%= form.hidden_field :reset_api_auth, value: true %>
+      <% if @project.api_auth_digest.blank? %>
+        <%= form.submit "Create 🚀", class: "button" %>
+      <% else %>
+        <%= form.submit "Reset!", class: "button", data: { "turbo-confirm": "Are you sure? Your previous token will stop working!"} %>
+      <% end %>
+
+    <% end %>
+  </div>
 </div>

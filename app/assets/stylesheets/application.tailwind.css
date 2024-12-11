@@ -12,7 +12,7 @@
     @apply border border-neutral-content rounded-xl p-3;
   }
   .button {
-    @apply border border-neutral-content py-1 px-2 rounded cursor-pointer;
+    @apply border border-neutral-content py-1 px-2 rounded cursor-pointer bg-primary text-primary-content;
   }
 }
 
@@ -50,7 +50,10 @@
     font-size: 0.875rem;
     font-weight: 700;
   }
-  input[type="text"] {
-    @apply border border-neutral-content rounded-lg p-2 bg-transparent;
+  input[type="text"], textarea {
+    @apply border border-neutral-content rounded-lg p-2 bg-neutral-content/10;
+  }
+  input::placeholder, textarea::placeholder {
+    @apply text-neutral-content/30;
   }
 }

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :organizations, only: %i[index create show]
   resources :organization_users, only: %i[create]
-  resources :projects, only: %i[create show]
+  resources :projects, only: %i[create show update]
   resources :reports, only: %i[] do
     member do
       get :bundled_html, action: :bundled_html

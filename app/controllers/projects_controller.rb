@@ -16,6 +16,14 @@ class ProjectsController < ApplicationController
     @reports = @project.reports
   end
 
+  def update
+    @project = projects.find(params[:id])
+    token = @project.reset_api_auth!
+
+    flash[:success] = "Copy this token now, it will only be available once: #{token}"
+    redirect_to project_path(@project)
+  end
+
   private
 
   def create_params
