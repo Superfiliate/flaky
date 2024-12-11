@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_11_114659) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_11_132634) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,12 +51,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_11_114659) do
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "handle"
+    t.index ["handle"], name: "index_organizations_on_handle", unique: true
   end
 
   create_table "projects", force: :cascade do |t|
     t.integer "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "handle"
+    t.string "api_auth_digest"
+    t.index ["handle"], name: "index_projects_on_handle", unique: true
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end
 

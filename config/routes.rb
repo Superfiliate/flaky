@@ -21,4 +21,14 @@ Rails.application.routes.draw do
       get "bundled_html/*path", action: :bundled_html
     end
   end
+
+  resources :organizations, only: %i[index create show]
+
+  namespace :api do
+    resources :reports, only: %i[] do
+      collection do
+        post :simplecov
+      end
+    end
+  end
 end
