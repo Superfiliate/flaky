@@ -42,3 +42,33 @@ flyctl ssh console
 ```
 
 The Github Oauth app can be be configured here https://github.com/organizations/Superfiliate/settings/applications/2807803
+
+```
+your-existing-test-action-on-github:
+  permissions:
+    pull-requests: write # To post comments on PR
+
+  # ...
+
+  steps:
+    # ... Your other test steps, including Rspec/Minitest that generates the SimpleCov HTML report.
+
+    - name: Send SimpleCov to flaky.xyz
+      id: flaky-xyz-upload
+      if: always()
+      run: |
+        zip -r simplecov.zip coverage;
+        RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
+          -F "bundled_html=@simplecov.zip" \
+          -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
+        echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;
+
+    - name: Comment PR with flaky.xyz results
+      uses: thollander/actions-comment-pull-request@v3
+      if: always() && github.event_name == 'pull_request'
+      with:
+        message: |
+          ${{ steps.flaky-xyz-upload.outputs.MARKDOWN }}
+        comment-tag: flaky-xyx-simplecov
+        mode: recreate
+```

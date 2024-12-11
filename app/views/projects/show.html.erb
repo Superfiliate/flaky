@@ -20,15 +20,43 @@
 
 <div class="flex justify-between items-start">
   <div class="card flex flex-col">
-    After running your tests on your CI, you can send the reports to this project by using the following command:
-
-    <%# TODO: show a full example of a Github Action here instead. %>
-
+    After running your tests on your CI, zip and CURL the SimpleCov HTML report to flaky.xyz, and it shows up here.
+    <br />
+    <br />
+    Here is an example on how to configure it on your GitHub Actions workflow:
     <textarea>
-curl -X POST http://localhost:3000/api/reports/simplecov \
-  -F "bundled_html=@/path/to/your/simplecov/coverage.zip" \
-  -H "Authorization: Bearer sffp1_xxxxxxxxxxxxxxxxxxxxxx"
+your-existing-test-action-on-github:
+  permissions:
+    pull-requests: write # To post comments on PR
+
+  # ...
+
+  steps:
+    # ... Your other test steps, including Rspec/Minitest that generates the SimpleCov HTML report.
+
+    - name: Send SimpleCov to flaky.xyz
+      id: flaky-xyz-upload
+      if: always()
+      run: |
+        zip -r simplecov.zip coverage;
+        RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
+          -F "bundled_html=@simplecov.zip" \
+          -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
+        echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;
+
+    - name: Comment PR with flaky.xyz results
+      uses: thollander/actions-comment-pull-request@v3
+      if: always() && github.event_name == 'pull_request'
+      with:
+        message: |
+          ${{ steps.flaky-xyz-upload.outputs.MARKDOWN }}
+        comment-tag: flaky-xyx-simplecov
+        mode: recreate
     </textarea>
+
+    <a href="https://github.com/Superfiliate/flaky/blob/main/.github/workflows/ci.yml" class="link">
+      You can also check a live example on this repository.
+    </a>
   </div>
 
   <div class="card">

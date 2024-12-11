@@ -12,7 +12,7 @@ module Api
       if report.save
         # TODO: Include the general % coverage from the file too.
         markdown = <<~MARKDOWN
-          [See the full report](#{bundled_html_report_url(report)})
+          [See the full coverage report](#{bundled_html_report_url(report)})
         MARKDOWN
 
         render json: { report:, markdown: }, status: :created
