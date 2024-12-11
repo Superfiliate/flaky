@@ -95,7 +95,7 @@ jobs:
           RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
             -F "bundled_html=@simplecov.zip" \
             -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
-          echo "MARKDOWN=$(echo $RESPONSE | jq '.markdown')" >> $GITHUB_OUTPUT;
+          echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;
 
       - name: Comment PR with flaky.xyz results
         uses: thollander/actions-comment-pull-request@v3
