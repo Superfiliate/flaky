@@ -35,7 +35,7 @@ class Report < ApplicationRecord
   end
 
   def simplecov_generate_bundled_html
-    bundled_html = parts.first.blob
+    update(bundled_html: parts.first.blob)
 
     # with_folder_with_unzipped_parts do |tempdir|
     #   # `File::FNM_DOTMATCH` to also include hidden files

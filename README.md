@@ -2,7 +2,8 @@
 
 This is a project to simplify collection and analysis of CI results.
 
-- [ ] Be able to upload and see SimpleCov HTML reports.
+- [x] Be able to upload and see SimpleCov HTML reports.
+- [ ] Update instructions with the working version from the monorepo.
 - [ ] Report Rspec test coverage along the time.
 - [ ] Be able to upload and see Sorbet's Spoom HTML reports.
 - [ ] Report Sorbet typing along the time.
