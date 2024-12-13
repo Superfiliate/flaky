@@ -87,6 +87,9 @@ jobs:
           # bin/rails test:system
           bin/rails test test/**
 
+      - name: Open SSH session for debugging action
+        uses: lhotari/action-upterm@v1
+
       - name: Send SimpleCov to flaky.xyz
         id: flaky-xyz-upload
         if: always()
