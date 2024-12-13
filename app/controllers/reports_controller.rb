@@ -28,14 +28,15 @@ class ReportsController < ApplicationController
     # https://apidock.com/rails/ActionController/DataStreaming/send_data
     # type = "text/css" if lookup_path.end_with?(".css")
     # type = Marcel::MimeType.for(extracted_file)
-    # type = nil if lookup_path.end_with?(".css")
-    # type = Marcel::MimeType.for(lookup_path) if type == "text/plain"
+    # type = "text/css" if lookup_path.end_with?(".css")
+    # type = "text/javascript" if lookup_path.end_with?(".js")
+    type = Marcel::MimeType.for(name: lookup_path)
 
     send_data(
       extracted_file,
       disposition: "inline",
       filename: lookup_path.split("/").last,
-      # **(type.present? ? { type: } : {}),
+      **(type.present? ? { type: } : {}),
     )
   end
 

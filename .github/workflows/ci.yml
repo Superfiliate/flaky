@@ -97,6 +97,7 @@ jobs:
             -F "expected_parts=1" \
             -F "run_identifier=${{ github.run_id }}" \
             -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
+          echo $RESPONSE;
           echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;
 
       - name: Comment PR with flaky.xyz results
