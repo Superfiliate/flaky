@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # TODO: Use Rails 8
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 8.0.0"
 gem "sqlite3", ">= 1.4" # Use sqlite3 as the database for Active Record
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
