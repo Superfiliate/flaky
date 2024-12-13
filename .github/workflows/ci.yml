@@ -94,7 +94,7 @@ jobs:
         id: flaky-xyz-upload
         if: always()
         run: |
-          rsync -av --include='*/' --include='*.rb' --exclude='*' --exclude='vendor/' . coverage/code;
+          find app lib -name '*.rb' -print0 | rsync -av --files-from=- --from0 ./ coverage/code;
           zip -r simplecov.zip coverage;
           RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
             -F "part=@simplecov.zip" \
