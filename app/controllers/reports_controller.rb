@@ -8,6 +8,7 @@ class ReportsController < ApplicationController
   def bundled_html
     # TODO: Rescue and render some errors
     @report = reports.find(params[:id])
+    return if @report.pending?
 
     if lookup_path.blank?
       if bundled_html_list_of_files.find { |item| item[:name] == "index.html" }.present?
@@ -29,7 +30,7 @@ class ReportsController < ApplicationController
       extracted_file,
       disposition: "inline",
       filename: lookup_path.split("/").last,
-      # :type => "mime/type"
+      type: Marcel::MimeType.for(extracted_file)
     )
   end
 
@@ -39,10 +40,11 @@ class ReportsController < ApplicationController
   def bundled_html_list_of_files
     @items = with_zip_entries do |entries|
       entries.map do |entry|
-        without_prefix = entry.name.split("/", 2)[1]
-        next if without_prefix.blank?
+        without_prefix = entry.name
+        # without_prefix = entry.name.split("/", 2)[1]
+        # next if without_prefix.blank?
 
-        { href: "#{request.original_url}/#{without_prefix}", name: without_prefix }
+        { href: bundled_html_report_path(@report) + "/" + without_prefix, name: without_prefix }
       end.compact
     end
   end
@@ -59,7 +61,7 @@ class ReportsController < ApplicationController
   def extract_file
     @report.bundled_html.open do |tempfile|
       Zip::File.open(tempfile.path) do |zip_entries|
-        entry = zip_entries.glob("*/#{lookup_path}").first
+        entry = zip_entries.glob(lookup_path).first
         return nil if entry.nil?
 
         raise "File too large when extracted" if entry.size > MAX_SIZE_RESPONSE

@@ -19,12 +19,8 @@ class Report < ApplicationRecord
   # scope :incomplete, -> { where(expected_parts:) }
   # scope :complete, -> { where(expected_parts:) }
 
-  def parts_failed?
-    expected_parts == 0
-  end
-
-  def parts_pending?
-    expected_parts > 0 && parts.count < expected_parts
+  def pending?
+    expected_parts == 0 || parts.count < expected_parts || bundled_html.blank?
   end
 
   def parts_complete?

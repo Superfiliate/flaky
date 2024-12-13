@@ -1,5 +1,14 @@
-<ul class="list-disc">
-  <% @items.each do |item| %>
-    <li><a href="<%= item[:href] %>" class="link"><%= item[:name] %></a></li>
-  <% end %>
-</ul>
+<% if @report.pending? %>
+  <div class="card bg-warning text-warning-content">
+    This report is still incomplete.
+    Please check back later when all the parts have been uploaded.
+  </div>
+<% end %>
+
+<% if @items.present? %>
+  <ul class="list-disc">
+    <% @items.each do |item| %>
+      <li><a href="<%= item[:href] %>" class="link"><%= item[:name] %></a></li>
+    <% end %>
+  </ul>
+<% end %>
