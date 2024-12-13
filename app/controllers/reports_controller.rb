@@ -9,10 +9,10 @@ class ReportsController < ApplicationController
     return if @report.pending?
 
     if lookup_path.blank?
-      if bundled_html_list_of_files.find { |item| item[:name] == "index.html" }.present?
-        redirect_to "#{request.original_url}/index.html"
-      end
+      indexes = bundled_html_list_of_files.filter { |item| item[:name] == "index.html" }
+      index = indexes.sort_by(&:length).first
 
+      redirect_to "#{request.original_url}/#{index}" if index.present?
       return
     end
 
