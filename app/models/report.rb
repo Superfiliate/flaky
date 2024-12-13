@@ -39,6 +39,11 @@ class Report < ApplicationRecord
       # `File::FNM_DOTMATCH` to also include hidden files
       resultset_json_filepaths = Dir.glob(File.join(tempdir, "**", "*resultset.json"), File::FNM_DOTMATCH)
 
+      # SimpleCov needs access to the code to merge the results
+      some_part_routes_file = Dir.glob(File.join(tempdir, "**", "code/config/routes.rb")).first
+      code_path = some_part_routes_file.split("/config/routes.rb").first
+      FileUtils.copy_entry code_path, tempdir
+
       merged_folder_path = File.join(tempdir, "SIMPLECOV-MERGED-COVERAGE")
       SimpleCov.collate(resultset_json_filepaths, "rails") do
         coverage_dir(merged_folder_path)
