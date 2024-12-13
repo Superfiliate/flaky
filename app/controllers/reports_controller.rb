@@ -26,11 +26,13 @@ class ReportsController < ApplicationController
 
     # https://stackoverflow.com/questions/9233021/returning-files-from-rails
     # https://apidock.com/rails/ActionController/DataStreaming/send_data
+    type = Marcel::MimeType.for(extracted_file)
+    type = Marcel::MimeType.for(lookup_path) if type == "text/plain"
     send_data(
       extracted_file,
       disposition: "inline",
       filename: lookup_path.split("/").last,
-      type: Marcel::MimeType.for(extracted_file)
+      type:,
     )
   end
 
