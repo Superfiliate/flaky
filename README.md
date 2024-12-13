@@ -20,11 +20,14 @@ And access the development app on http://localhost:3000
 The Github Oauth app can be be configured here https://github.com/organizations/Superfiliate/settings/applications/2807827
 
 ```
+bin/rails test test/**;
+rsync -av --include='*/' --include='*.rb' --exclude='*' . coverage/code;
+zip -r simplecov.zip coverage;
 curl -X POST http://localhost:3000/api/reports/simplecov \
-   -F "part=@public/examples/zero_coverage.zip" \
-   -F "expected_parts=2" \
-   -F "run_identifier=a3s4d5f6g7h8jk" \
-   -H "Authorization: Bearer sffp1_9824289e0db0ccd1619696a876d4331211173501f6b70adcf2a8d3380224582a9bef654a18775418c6ac58a0d7fcca51a620f92a6c019d993aa0bc7dc636d975"
+  -F "part=@simplecov.zip" \
+  -F "expected_parts=2" \
+  -F "run_identifier=a3s4d5f6g7h8xtcyujk" \
+  -H "Authorization: Bearer sffp1_9824289e0db0ccd1619696a876d4331211173501f6b70adcf2a8d3380224582a9bef654a18775418c6ac58a0d7fcca51a620f92a6c019d993aa0bc7dc636d975"
 ```
 
 ## Production environment
