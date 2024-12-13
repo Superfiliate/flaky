@@ -8,7 +8,7 @@ class Project < ApplicationRecord
               with: /\A[a-z0-9\-]+\z/,
               message: "accepts only lowercase letters, numbers, and hyphens. Eg: 'my-github-repo'"
             },
-            uniqueness: true
+            uniqueness: { scope: :organization }
 
   def self.find_by_token(token)
     Project.find_by(api_auth_digest: Digest::SHA512.hexdigest(token))
