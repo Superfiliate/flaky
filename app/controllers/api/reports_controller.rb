@@ -40,13 +40,12 @@ module Api
       @report ||= begin
         current_project.with_lock do
           # Prevent race-condition on many parts of the same run being uploaded close together.
-          run_identifer = params[:run_identifer].presence || Time.zone.now.iso8601
+          run_identifier = params[:run_identifier].presence || Time.zone.now.iso8601
           record = Report.find_or_create_by!(
             organization: current_project.organization,
             project: current_project,
             kind: action_name,
-            run_identifer:,
-            expected_parts: params[:expected_parts],
+            run_identifier:
           )
         end
       end

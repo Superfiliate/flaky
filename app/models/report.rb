@@ -90,8 +90,8 @@ class Report < ApplicationRecord
   end
 
   def validate_too_many_parts
-    # return if parts.count <= expected_parts
+    return if parts.count <= expected_parts
 
-    # errors.add(:parts, "Too many parts")
+    errors.add(:parts, "Too many parts")
   end
 end
