@@ -31,6 +31,10 @@ gem "omniauth-github", "~> 2.0"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth", "~> 2.1"
 
+# Report analyzers
+gem "simplecov" # Yes, on production, so we can merge results on the fly
+gem "rubyzip", require: "zip" # Already included by other dependencies, but so we don't need to require it explicitly
+
 group :development, :test do
   gem "dotenv-rails", "~> 3.1"
 
@@ -47,8 +51,6 @@ group :development do
 end
 
 group :test do
-  gem "simplecov", require: false
-
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
