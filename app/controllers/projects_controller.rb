@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
     if @project.save
       flash[:success] = "Project '#{@project.handle}' created successfully!"
-      redirect_to project_path(@project)
+      redirect_to organization_path(@project.organization)
     else
       flash[:danger] = @project.errors.full_messages.to_sentence
       redirect_back(fallback_location: organizations_path)

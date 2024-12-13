@@ -10,7 +10,7 @@ class OrganizationsController < ApplicationController
       OrganizationUser.create(organization: @organization, user: current_user)
 
       flash[:success] = "Organization '#{@organization.handle}' created successfully!"
-      redirect_to organization_path(@organization)
+      redirect_to organizations_path
     else
       flash[:danger] = @organization.errors.full_messages.to_sentence
       redirect_back(fallback_location: organizations_path)

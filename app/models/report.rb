@@ -70,7 +70,7 @@ class Report < ApplicationRecord
         part.open do |tempzip|
           Zip::File.open(tempzip.path) do |zip_entries|
             zip_entries.each do |zip_entry|
-              raise "File too large when extracted" if zip_entry.size > 10.megabytes
+              raise "File too large when extracted" if zip_entry.size > 100.megabytes
 
               file_path = File.join(tempdir, part.id.to_s, zip_entry.name)
               folder_path = file_path.reverse.split("/", 2).last.reverse

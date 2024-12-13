@@ -1,8 +1,6 @@
 require "zip"
 
 class ReportsController < ApplicationController
-  MAX_SIZE_RESPONSE = 100 * 1024**2 # 100MiB
-
   protect_from_forgery except: %i[bundled_html]
 
   def bundled_html
@@ -70,7 +68,7 @@ class ReportsController < ApplicationController
         entry = zip_entries.glob(lookup_path).first
         return nil if entry.nil?
 
-        raise "File too large when extracted" if entry.size > MAX_SIZE_RESPONSE
+        raise "File too large when extracted" if entry.size > 100.megabytes
         entry.get_input_stream.read
       end
     end
