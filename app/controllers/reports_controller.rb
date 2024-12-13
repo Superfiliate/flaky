@@ -10,9 +10,9 @@ class ReportsController < ApplicationController
 
     if lookup_path.blank?
       indexes = bundled_html_list_of_files.filter { |item| item[:name].include?("index.html") }
-      index = indexes.sort_by(&:length).first
+      index = indexes.sort_by { |item| item[:name].length }.first
 
-      redirect_to "#{request.original_url}/#{index}" if index.present?
+      redirect_to index[:href] if index.present?
       return
     end
 
