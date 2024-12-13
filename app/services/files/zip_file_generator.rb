@@ -12,7 +12,7 @@ module Files
       entries = Dir.entries(@input_dir) - %w[. ..]
 
       ::Zip::File.open(@output_file, ::Zip::File::CREATE) do |zipfile|
-        write_entries entries, '', zipfile
+        write_entries entries, "", zipfile
       end
     end
 
@@ -21,7 +21,7 @@ module Files
     # A helper method to make the recursion work.
     def write_entries(entries, path, zipfile)
       entries.each do |e|
-        zipfile_path = path == '' ? e : File.join(path, e)
+        zipfile_path = path == "" ? e : File.join(path, e)
         disk_file_path = File.join(@input_dir, zipfile_path)
 
         if File.directory? disk_file_path
