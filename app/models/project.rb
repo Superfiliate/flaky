@@ -25,6 +25,6 @@ class Project < ApplicationRecord
       next if report.general_coverage.blank?
 
       [ report.created_at, report.general_coverage ]
-    end
+    end.compact
   end
 end
