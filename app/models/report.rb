@@ -36,32 +36,26 @@ class Report < ApplicationRecord
 
   def simplecov_generate_bundled_html
     update(bundled_html: parts.first.blob)
-
-    # with_folder_with_unzipped_parts do |tempdir|
-    #   # `File::FNM_DOTMATCH` to also include hidden files
-    #   resultset_json_filepaths = Dir.glob(File.join(tempdir, "**", "*resultset.json"), File::FNM_DOTMATCH)
-
-    #   # SimpleCov needs access to the code to merge the results
-    #   some_part_routes_file = Dir.glob(File.join(tempdir, "**", "code/config/routes.rb")).first
-    #   code_path = some_part_routes_file.split("/config/routes.rb").first
-    #   FileUtils.copy_entry code_path, tempdir
-
-    #   merged_folder_path = File.join(tempdir, "SIMPLECOV-MERGED-COVERAGE")
-    #   SimpleCov.collate(resultset_json_filepaths, "rails") do
-    #     coverage_dir(merged_folder_path)
-    #   end
-
-    #   merged_zip_path = "#{merged_folder_path}.zip"
-    #   Files::ZipFileGenerator.new(merged_folder_path, merged_zip_path).call
-
-    #   bundled_html.attach(io: File.open(merged_zip_path), filename: "bundled_html.zip", content_type: "application/zip")
-    # end
   end
 
   def simplecov_generate_results
     nil if bundled_html.blank?
 
     # TODO: fill the Report#results with some overall details too
+    bundled_html.open do |tempzip|
+      Zip::File.open(tempzip.path) do |zip_entries|
+        zip_entries.each do |zip_entry|
+          raise "File too large when extracted" if zip_entry.size > 100.megabytes
+          next unless zip_entry.name.include?(".last_run.json")
+
+          content = zip_entry.get_input_stream.read
+          json = JSON.parse(content)
+          general_coverage = json["result"]["line"]
+
+          self.update!(results: self[:results].deep_merge(general_coverage:))
+        end
+      end
+    end
   end
 
   private
@@ -69,27 +63,6 @@ class Report < ApplicationRecord
   def prefill_defaults
     self[:name] = name.presence || "#{kind} - #{(created_at || Time.zone.now).iso8601}"
     self[:expected_parts] = expected_parts.presence || 0
-  end
-
-  def with_folder_with_unzipped_parts
-    Dir.mktmpdir do |tempdir|
-      parts.each do |part|
-        part.open do |tempzip|
-          Zip::File.open(tempzip.path) do |zip_entries|
-            zip_entries.each do |zip_entry|
-              raise "File too large when extracted" if zip_entry.size > 100.megabytes
-
-              file_path = File.join(tempdir, part.id.to_s, zip_entry.name)
-              folder_path = file_path.reverse.split("/", 2).last.reverse
-              FileUtils.mkdir_p(folder_path) # Create the nested folders
-              zip_entry.extract(file_path)
-            end
-          end
-        end
-      end
-
-      yield tempdir
-    end
   end
 
   def validate_too_many_parts
