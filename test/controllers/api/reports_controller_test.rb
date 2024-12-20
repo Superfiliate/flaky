@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::FilesControllerTest < ActionDispatch::IntegrationTest
   def setup
@@ -17,8 +17,8 @@ class Api::FilesControllerTest < ActionDispatch::IntegrationTest
   test "simplecov zip upload creates and processes Report" do
     headers = { Authorization: "Bearer #{@token}" }
     uploaded_file = fixture_file_upload(
-      Rails.root.join('test/fixtures/files/user_model_coverage.zip'),
-      'application/zip'
+      Rails.root.join("test/fixtures/files/user_model_coverage.zip"),
+      "application/zip"
     )
 
     assert_equal(Report.count, 0)
