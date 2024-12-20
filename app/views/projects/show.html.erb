@@ -2,6 +2,8 @@
 <h5>Project</h5>
 <h1><%= @project.handle %></h1>
 
+<%= line_chart @project.reports_coverage_progress %>
+
 <div>
   <ul class="list-disc">
     <h4>Reports</h4>

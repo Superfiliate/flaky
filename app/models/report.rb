@@ -58,10 +58,14 @@ class Report < ApplicationRecord
     end
   end
 
-  def formatted_coverage
-    return if results["general_coverage"].blank?
+  def general_coverage
+    results["general_coverage"]
+  end
 
-    "#{results["general_coverage"]}%"
+  def formatted_coverage
+    return if general_coverage.blank?
+
+    "#{general_coverage}%"
   end
 
   private
