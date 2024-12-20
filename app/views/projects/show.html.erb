@@ -11,7 +11,12 @@
     <% end %>
 
     <% @reports.each do |report| %>
-      <li><a href="<%= bundled_html_report_path(report) %>" class="link"><%= report.name %></a></li>
+      <li>
+        <%= link_to(bundled_html_report_path(report), class: "link") do %>
+          <%= report.name %>
+        <% end %>
+        (<%= [report.branch, report.formatted_coverage].join(" - ") %>)
+      </li>
     <% end %>
   </ul>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_13_203004) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_20_180320) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_203004) do
     t.json "results", default: {}, null: false
     t.integer "expected_parts", default: 0, null: false
     t.string "run_identifier"
+    t.string "branch", default: "main", null: false
     t.index ["organization_id"], name: "index_reports_on_organization_id"
     t.index ["project_id"], name: "index_reports_on_project_id"
   end

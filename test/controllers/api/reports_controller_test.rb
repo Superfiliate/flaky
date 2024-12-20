@@ -29,6 +29,6 @@ class Api::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(Report.count, 1)
     assert_equal(Report.first.parts.count, 1)
     assert_equal(Report.first.bundled_html.present?, true)
-    assert_equal(Report.first.results["general_coverage"], 3.47)
+    assert_equal(Report.first.formatted_coverage, "3.47%")
   end
 end

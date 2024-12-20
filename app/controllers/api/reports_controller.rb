@@ -7,7 +7,7 @@ module Api
       expected_parts = params[:expected_parts].presence || 1
       if report.update(expected_parts:)
         report.generate_bundled_html if report.parts_complete?
-        general_coverage = Report.first.results["general_coverage"]
+        general_coverage = report.results["general_coverage"]
 
         # TODO: Include the general % coverage from the file too.
         markdown = <<~MARKDOWN
