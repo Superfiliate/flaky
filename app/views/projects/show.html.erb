@@ -2,12 +2,14 @@
 <h5>Project</h5>
 <h1><%= @project.handle %></h1>
 
-<%=
-  line_chart(
-    simplecov_progress,
-    library: { scales: { y: { type: 'logarithmic' } } }
-  )
-%>
+<% if simplecov_progress.present? %>
+  <%=
+    line_chart(
+      simplecov_progress,
+      library: { scales: { y: { type: 'logarithmic' } } }
+    )
+  %>
+<% end %>
 
 <div>
   <ul class="list-disc">
