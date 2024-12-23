@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = projects.find(params[:id])
-    @reports = @project.reports
+    @reports = @project.reports.order(created_at: :desc).limit(100)
   end
 
   def update

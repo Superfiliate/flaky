@@ -39,7 +39,7 @@ class Report < ApplicationRecord
   end
 
   def simplecov_generate_results
-    nil if bundled_html.blank?
+    return if bundled_html.blank?
 
     bundled_html.open do |tempzip|
       Zip::File.open(tempzip.path) do |zip_entries|
