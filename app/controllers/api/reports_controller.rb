@@ -9,7 +9,6 @@ module Api
         report.generate_bundled_html if report.parts_complete?
         general_coverage = report.results["general_coverage"]
 
-        # TODO: Include the general % coverage from the file too.
         markdown = <<~MARKDOWN
           [#{general_coverage} covered. Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
         MARKDOWN
