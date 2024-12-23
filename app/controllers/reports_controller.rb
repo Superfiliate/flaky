@@ -40,8 +40,7 @@ class ReportsController < ApplicationController
 
   private
 
-  # TODO: memoize
-  def bundled_html_list_of_files
+  memoize def bundled_html_list_of_files
     @items = with_zip_entries do |entries|
       entries.map do |entry|
         without_prefix = entry.name
@@ -60,9 +59,8 @@ class ReportsController < ApplicationController
 
   # https://edgeguides.rubyonrails.org/active_storage_overview.html#downloading-files
   # https://github.com/rubyzip/rubyzip?tab=readme-ov-file#reading-a-zip-file
-  # TODO: memoize
   # TODO: keep the tempfile around for a while, so we don't need to download it again
-  def extract_file
+  memoize def extract_file
     @report.bundled_html.open do |tempfile|
       Zip::File.open(tempfile.path) do |zip_entries|
         entry = zip_entries.glob(lookup_path).first

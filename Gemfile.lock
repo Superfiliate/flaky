@@ -168,6 +168,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    memery (1.6.0)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.7.5)
@@ -404,6 +405,7 @@ DEPENDENCIES
   dotenv-rails (~> 3.1)
   importmap-rails
   jbuilder
+  memery (~> 1.6)
   omniauth (~> 2.1)
   omniauth-github (~> 2.0)
   omniauth-rails_csrf_protection (~> 1.0)

@@ -41,7 +41,6 @@ class Report < ApplicationRecord
   def simplecov_generate_results
     nil if bundled_html.blank?
 
-    # TODO: fill the Report#results with some overall details too
     bundled_html.open do |tempzip|
       Zip::File.open(tempzip.path) do |zip_entries|
         zip_entries.each do |zip_entry|
