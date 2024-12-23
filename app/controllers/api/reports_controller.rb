@@ -10,7 +10,7 @@ module Api
         general_coverage = report.results["general_coverage"]
 
         markdown = <<~MARKDOWN
-          [#{general_coverage} covered. Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
+          [#{general_coverage}% covered. Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
         MARKDOWN
 
         render json: { report:, markdown: }, status: :created
