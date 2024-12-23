@@ -9,11 +9,15 @@ module Projects
     def call
       # TODO: could be improved to only get the last report of each date.
       # TODO: could be improved to remove blank coverage reports at the SQL level.
-      project.reports.simplecov.where(branch: "main").order(:created_at).map do |report|
-        next if report.general_coverage.blank?
-
-        [ report.created_at, report.general_coverage ]
-      end.compact
+      project
+        .reports
+        .simplecov
+        .where(branch: "main")
+        .where("JSON_EXTRACT(results, '$.general_coverage') IS NOT NULL")
+        .group("DATE(created_at)")
+        .order(:created_at)
+        .map { |report| [ report.created_at, report.general_coverage ] }
+        .compact
     end
   end
 end
