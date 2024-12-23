@@ -19,8 +19,7 @@ module Api
         end
 
         markdown = <<~MARKDOWN
-          [#{general_coverage}% covered #{markdown_diff}.
-          Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
+          [#{general_coverage}% covered #{markdown_diff}. Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
         MARKDOWN
 
         render json: { report:, markdown: }, status: :created
