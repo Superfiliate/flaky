@@ -22,7 +22,7 @@ class Api::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
     assert_equal(Report.count, 1)
 
-    report = Report.first
+    report = Report.last
     assert_equal(report.organization, @project.organization)
     assert_equal(report.project, @project)
     assert_equal(report.parts.count, 1)
@@ -32,13 +32,22 @@ class Api::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "with custom run_identfier and branch" do
+    Report.create!(
+      organization: @project.organization,
+      project: @project,
+      kind: "simplecov",
+      branch: "main",
+      results: { general_coverage: 1.23 }
+    )
+
     params = { part: @part, run_identifier: "custom-run", branch: "custom-branch" }
     post simplecov_api_reports_url, params:, headers: @headers
 
     assert_response :created
-    assert_equal(Report.count, 1)
+    assert_equal(response.body.include?("3.47% covered (+2.24% coverage improved)"), true)
+    assert_equal(Report.count, 2)
 
-    report = Report.first
+    report = Report.last
     assert_equal(report.run_identifier, "custom-run")
     assert_equal(report.branch, "custom-branch")
   end

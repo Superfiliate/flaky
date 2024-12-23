@@ -9,8 +9,18 @@ module Api
         report.generate_bundled_html if report.parts_complete?
         general_coverage = report.results["general_coverage"]
 
+        coverage_diff = general_coverage - report.project.last_main_branch_general_coverage
+        markdown_diff = if coverage_diff.zero?
+          "(Same as the main branch)"
+        elsif coverage_diff.positive?
+          "(+#{coverage_diff}% coverage improved)"
+        else
+          "(-#{coverage_diff}% coverage decreased 😢)"
+        end
+
         markdown = <<~MARKDOWN
-          [#{general_coverage}% covered. Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
+          [#{general_coverage}% covered #{markdown_diff}.
+          Click to see the breakdown 🧮.](#{bundled_html_report_url(report)})
         MARKDOWN
 
         render json: { report:, markdown: }, status: :created

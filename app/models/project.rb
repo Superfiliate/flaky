@@ -19,4 +19,13 @@ class Project < ApplicationRecord
     update!(api_auth_digest: Digest::SHA512.hexdigest(token))
     token
   end
+
+  def last_main_branch_general_coverage
+    reports
+      .simplecov
+      .where(branch: "main")
+      .where("JSON_EXTRACT(results, '$.general_coverage') IS NOT NULL")
+      .order(:created_at)
+      .last&.general_coverage || 0
+  end
 end
