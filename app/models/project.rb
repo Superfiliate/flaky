@@ -19,12 +19,4 @@ class Project < ApplicationRecord
     update!(api_auth_digest: Digest::SHA512.hexdigest(token))
     token
   end
-
-  def reports_coverage_progress
-    reports.map do |report|
-      next if report.general_coverage.blank?
-
-      [ report.created_at, report.general_coverage ]
-    end.compact
-  end
 end

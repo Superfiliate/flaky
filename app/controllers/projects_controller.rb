@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  helper_method :simplecov_progress
+
   def create
     @project = Project.new(create_params)
 
@@ -25,6 +27,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  memoize def simplecov_progress
+    ::Projects::SimplecovProgress.new(@project).call
+  end
 
   def create_params
     params

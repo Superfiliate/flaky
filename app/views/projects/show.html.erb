@@ -4,7 +4,7 @@
 
 <%=
   line_chart(
-    @project.reports_coverage_progress,
+    simplecov_progress,
     library: { scales: { y: { type: 'logarithmic' } } }
   )
 %>
