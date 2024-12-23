@@ -41,11 +41,13 @@ module Api
         current_project.with_lock do
           # Prevent race-condition on many parts of the same run being uploaded close together.
           run_identifier = params[:run_identifier].presence || Time.zone.now.iso8601
+          branch = params[:branch].presence || "main"
           record = Report.find_or_create_by!(
             organization: current_project.organization,
             project: current_project,
             kind: action_name,
-            run_identifier:
+            run_identifier:,
+            branch:,
           )
         end
       end

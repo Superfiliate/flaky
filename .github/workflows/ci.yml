@@ -98,6 +98,7 @@ jobs:
           zip -r simplecov.zip coverage;
           RESPONSE=$(curl -X POST https://flaky.xyz/api/reports/simplecov \
             -F "part=@simplecov.zip" \
+            -F "branch=${{ github.head_ref || github.ref_name }}" \
             -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
           echo $RESPONSE;
           echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;

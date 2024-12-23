@@ -4,10 +4,10 @@ This is a project to simplify collection and analysis of CI results.
 
 - [x] Be able to upload and see SimpleCov HTML reports.
 - [ ] Update instructions with the working version from the monorepo.
-- [ ] Report Rspec test coverage along the time.
+- [ ] Report Rspec test coverage along the time, per-branch.
 - [ ] Be able to upload and see Sorbet's Spoom HTML reports.
 - [ ] Report Sorbet typing along the time.
-- [ ] Be able to track failing specs, and analyze which could be flaky in need of some help.
+- [ ] Be able to track failing specs, and analyze which could be flaky in need of some extra attention.
 
 ## Development environment
 
@@ -68,6 +68,7 @@ your-existing-test-action-on-github:
           -F "part=@simplecov.zip" \
           -F "expected_parts=1" \
           -F "run_identifier=${{ github.run_id }}" \
+          -F "branch=${{ github.head_ref || github.ref_name }}" \
           -H "Authorization: Bearer ${{ secrets.FLAKY_XYZ_TOKEN }}");
         echo "MARKDOWN=$(echo $RESPONSE | jq -r '.markdown')" >> $GITHUB_OUTPUT;
 
