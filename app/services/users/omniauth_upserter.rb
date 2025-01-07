@@ -18,6 +18,8 @@ module Users
       end
 
       enroll_from_organization_queues
+
+      @user
     end
 
     private

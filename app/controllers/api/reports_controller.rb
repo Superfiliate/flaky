@@ -9,13 +9,13 @@ module Api
         report.generate_bundled_html if report.parts_complete?
         general_coverage = report.results["general_coverage"]
 
-        coverage_diff = general_coverage - report.project.last_main_branch_general_coverage
+        coverage_diff = (general_coverage - report.project.last_main_branch_general_coverage).round(2)
         markdown_diff = if coverage_diff.zero?
           "(Same as the main branch)"
         elsif coverage_diff.positive?
           "(+#{coverage_diff}% coverage improved)"
         else
-          "(-#{coverage_diff}% coverage decreased 😢)"
+          "(#{coverage_diff}% coverage decreased 😢)"
         end
 
         markdown = <<~MARKDOWN

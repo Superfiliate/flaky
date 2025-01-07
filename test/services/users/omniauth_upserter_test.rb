@@ -22,14 +22,13 @@ class Users::OmniauthUpserterTest < ActiveSupport::TestCase
 
   def test_creates_new_user_if_not_existing
     assert_difference "User.count", 1 do
-      ::Users::OmniauthUpserter.new(@auth).call
+      @returned_user = ::Users::OmniauthUpserter.new(@auth).call
     end
 
-    user = User.find_by(uid: @auth.uid)
-    assert_equal "github", user.provider
-    assert_equal "12345", user.uid
-    assert_equal "testuser", user.handle
-    assert_equal "testuser@example.com", user.email
+    assert_equal "github", @returned_user.provider
+    assert_equal "12345", @returned_user.uid
+    assert_equal "testuser", @returned_user.handle
+    assert_equal "testuser@example.com", @returned_user.email
   end
 
   def test_finds_existing_user_if_already_exists
@@ -42,26 +41,26 @@ class Users::OmniauthUpserterTest < ActiveSupport::TestCase
     )
 
     assert_no_difference "User.count" do
-      ::Users::OmniauthUpserter.new(@auth).call
+      @returned_user = ::Users::OmniauthUpserter.new(@auth).call
     end
 
-    user = User.find_by(uid: @auth.uid)
-    assert_equal existing_user.id, user.id
+    assert_equal existing_user.id, @returned_user.id
   end
 
   def test_enrolls_user_from_organization_queues
-    ::Users::OmniauthUpserter.new(@auth).call
-    user = User.find_by(uid: @auth.uid)
+    @returned_user = ::Users::OmniauthUpserter.new(@auth).call
 
-    assert @organization.reload.user_queue.exclude?(user.handle)
-    assert OrganizationUser.exists?(organization: @organization, user: user)
+    assert @organization.reload.user_queue.exclude?(@returned_user.handle)
+    assert OrganizationUser.exists?(organization: @organization, user: @returned_user)
   end
 
   def test_does_not_fail_when_handle_not_in_queue
     @organization.update!(user_queue: [])
 
     assert_nothing_raised do
-      ::Users::OmniauthUpserter.new(@auth).call
+      @returned_user = ::Users::OmniauthUpserter.new(@auth).call
     end
+
+    assert @returned_user.is_a?(User)
   end
 end
