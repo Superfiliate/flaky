@@ -7,7 +7,7 @@
   <%=
     line_chart(
       simplecov_progress_last_year,
-      library: { scales: { y: { type: 'logarithmic' } } }
+      library: { scales: { y: { beginAtZero: false } } }
     )
   %>
 <% end %>
