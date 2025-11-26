@@ -4,10 +4,11 @@
 
 <% if simplecov_progress_last_year.present? %>
   <h4>Last 365 Days</h4>
+  <% min_value = simplecov_progress_last_year.map(&:last).min - 1 %>
   <%=
     line_chart(
       simplecov_progress_last_year,
-      library: { scales: { y: { beginAtZero: false } } }
+      min: min_value
     )
   %>
 <% end %>
