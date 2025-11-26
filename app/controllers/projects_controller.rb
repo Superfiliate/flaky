@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  helper_method :simplecov_progress
+  helper_method :simplecov_progress, :simplecov_progress_last_year
 
   def create
     @project = Project.new(create_params)
@@ -30,6 +30,10 @@ class ProjectsController < ApplicationController
 
   memoize def simplecov_progress
     ::Projects::SimplecovProgress.new(@project).call
+  end
+
+  memoize def simplecov_progress_last_year
+    ::Projects::SimplecovProgress.new(@project, since: 365.days.ago).call
   end
 
   def create_params

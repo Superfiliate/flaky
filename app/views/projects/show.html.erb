@@ -2,7 +2,18 @@
 <h5>Project</h5>
 <h1><%= @project.handle %></h1>
 
+<% if simplecov_progress_last_year.present? %>
+  <h4>Last 365 Days</h4>
+  <%=
+    line_chart(
+      simplecov_progress_last_year,
+      library: { scales: { y: { type: 'logarithmic' } } }
+    )
+  %>
+<% end %>
+
 <% if simplecov_progress.present? %>
+  <h4>All Time</h4>
   <%=
     line_chart(
       simplecov_progress,
