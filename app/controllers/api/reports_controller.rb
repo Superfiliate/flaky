@@ -10,8 +10,8 @@ module Api
         general_coverage = report.results["general_coverage"]
 
         coverage_diff = (general_coverage - report.project.last_main_branch_general_coverage).round(2)
-        markdown_diff = if coverage_diff.zero?
-          "(Same as the main branch)"
+        markdown_diff = if coverage_diff.abs <= 0.01 # Ignore very minor changes
+          "(No meaningful change)"
         elsif coverage_diff.positive?
           "(+#{coverage_diff}% coverage improved)"
         else
