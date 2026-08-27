@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This has been been superseeded by our internal https://github.com/Superfiliate/superowners project
+
 # Flaky
 
 This is a project to simplify collection and analysis of CI results.
